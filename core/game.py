@@ -56,6 +56,8 @@ class Game:
         return self.board
 
     def take_turn(self, index, value):
+        if self.all_turns_taken():
+            return "start"
         if self.check_winner() == "x" or self.check_winner() == "o":
             raise GameOver(f"Game is over and {self.check_winner()} is winner")
 

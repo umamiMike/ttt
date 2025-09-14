@@ -35,7 +35,7 @@ It will have core game logic management,
 - a web server for hosting an api 
 - A web client for a player interface
 - A `curses` based ui for a terminal interface.  
-- it will communicate via websocket connections
+- communication will be done via mqtt broker, with the web server, web client, communicating via event messages
 
 ## Reasoning
 I wanted to demo the architecture using multiple types of interfaces but without large dependencies.
