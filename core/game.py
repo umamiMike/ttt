@@ -3,12 +3,18 @@ from dataclasses import dataclass, field
 class Occupied(Exception):
     """the spot on the board is already taken"""
     pass
+class WrongBoard(Exception):
+    """ wront board size on init"""
+    pass
 
 
 @dataclass(frozen=True)
 class Game:
     board: list[int] = field(default_factory= lambda: [0,0,0,0,0,0,0,0,0])
 
+    def __post_init__(self):
+        if len(self.board) != 9:
+            raise WrongBoard(f"you initialized the wrong size board, len {len(self.board)}")
     def game_loop():
         pass
 
@@ -41,12 +47,17 @@ class Game:
 
         target_vals = (-3,3)
         for pw in self.possible_wins():
-            print(pw)
-            pass
-            breakpoint()
-        # winner = next((sum(l)   if sum(l) in target_vals ), 0)
-        winner = 0
-        return winner
+            match sum(pw):
+                case 3:
+                    return "x"
+                case -3:
+                    return "o"
+
+        if self.all_turns_taken():
+            return "draw"
+        else:
+            return "take another turn"
+        
         
     def all_turns_taken(self): 
         """ if there are no 0's on the board that means the game is over
