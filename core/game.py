@@ -6,27 +6,68 @@ class Occupied(Exception):
 class WrongBoard(Exception):
     """ wront board size on init"""
     pass
+class WrongTurn(Exception):
+    """same player cant go twice in a row"""
+    pass
+class WrongFirst(Exception):
+    """x player must go first"""
+    pass
+class GameOver(Exception):
+    """ game is over"""
+    pass
 
 
-@dataclass(frozen=True)
+@dataclass
 class Game:
+    last_inserted: int = 0
     board: list[int] = field(default_factory= lambda: [0,0,0,0,0,0,0,0,0])
 
     def __post_init__(self):
         if len(self.board) != 9:
             raise WrongBoard(f"you initialized the wrong size board, len {len(self.board)}")
+
     def game_loop():
         pass
 
 
-    def board_state(state):
+    def board_state(self):
+        board_rep = list(".........")
+        print(board_rep)
+        for ind, el in enumerate(board_rep):
+            match self.board[ind]:
+                case -1:
+                    board_rep[ind] = "o"
+                case 1:
+                    board_rep[ind] = "x"
+                case 0:
+                    board_rep[ind] = "."
+
+
+        newb = []
+        ind = 0 
+        while board_rep:
+            char = board_rep.pop(0)
+            if ind % 3 == 0:
+                newb.append("\n")
+            newb.append(char)
+            ind +=1
+        return "".join(newb)
+
         return self.board
 
     def take_turn(self, index, value):
+        if self.check_winner() == "x" or self.check_winner() == "o":
+            raise GameOver(f"Game is over and {self.check_winner()} is winner")
+
+        if self.last_inserted == 0 and value == -1:
+            raise WrongFirst("x player must start")
+        if value == self.last_inserted:
+            raise WrongTurn("no turns twice in a row")
         if(self.board[index]): # if it is not zero it is already taken
             raise Occupied("already taken");
         else:
           self.board[index] = value
+          self.last_inserted = value # helps determine who goes next 
 
     def possible_wins(self):
         """
@@ -44,7 +85,6 @@ class Game:
         return [ra,rb,rc,ca,cb,cc,diag,diagb]
 
     def check_winner(self):
-
         target_vals = (-3,3)
         for pw in self.possible_wins():
             match sum(pw):
