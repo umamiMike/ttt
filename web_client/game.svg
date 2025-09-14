@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="2721.4033"
+   height="3357.0142"
+   viewBox="0 0 720.03798 888.20999"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
+   sodipodi:docname="game.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <style
+     id="style2">.button {  }
+.button {   }
+.button {   }
+.button {   }
+</style>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     inkscape:zoom="2.6761223"
+     inkscape:cx="85.197899"
+     inkscape:cy="201.59766"
+     inkscape:window-width="1584"
+     inkscape:window-height="1352"
+     inkscape:window-x="2690"
+     inkscape:window-y="27"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="use17">
+    <inkscape:page
+       x="0"
+       y="0"
+       width="720.03796"
+       height="888.20996"
+       id="page3"
+       margin="0 58.529961 0 0"
+       bleed="0" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#333333;stroke:none;stroke-width:1.27;stroke-linecap:round;stroke-linejoin:round"
+       id="rect3"
+       width="720.03796"
+       height="888.20996"
+       x="0"
+       y="0"
+       sodipodi:insensitive="true" />
+    <text
+       xml:space="preserve"
+       style="font-size:5.04952px;line-height:0.171715px;font-family:Geneva;-inkscape-font-specification:'Geneva, Normal';text-align:end;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:end;fill:#ececec;stroke:none;stroke-width:1.27;stroke-linecap:round;stroke-linejoin:round"
+       x="25.739235"
+       y="85.26091"
+       id="text2"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         style="fill:#ececec;stroke-width:1.27"
+         x="25.739235"
+         y="85.26091">Player 1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5.04952px;line-height:0.171715px;font-family:Geneva;-inkscape-font-specification:'Geneva, Normal';text-align:end;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:end;fill:#f2f2f2;stroke:none;stroke-width:1.27;stroke-linecap:round;stroke-linejoin:round"
+       x="61.331779"
+       y="85.26091"
+       id="text3"><tspan
+         sodipodi:role="line"
+         id="tspan3"
+         style="fill:#f2f2f2;stroke-width:1.27"
+         x="61.331779"
+         y="85.26091">Player 2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.11167px;line-height:1.09471px;font-family:Geneva;-inkscape-font-specification:'Geneva, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;white-space:pre;inline-size:24.4314;display:inline;fill:#f2f2f2;stroke-width:0.3335;stroke-linecap:round;stroke-linejoin:round"
+       x="8.5514202"
+       y="106.82302"
+       id="feedback"
+       transform="matrix(3.8080948,0,0,3.8080948,-24.219983,-302.48246)"><tspan
+         x="8.5514202"
+         y="106.82302"
+         id="tspan4">asdf nasdf ajdfj asdfj ajsdfj asdfj ajsdfj asdfj </tspan><tspan
+         x="8.5514202"
+         y="107.91773"
+         id="tspan5">ajsdfj asdfj asjdf jasdfj adjf ajsdfj asdfj ajdf </tspan><tspan
+         x="8.5514202"
+         y="109.01244"
+         id="tspan6">jasdjf ajsdfj asdfj asjdf jasdf</tspan></text>
+    <g
+       id="g4-4-5"
+       transform="matrix(1.4388508,0,0,1.4388508,-10.979948,-9.8697724)"
+       class="button "
+       style="stroke-width:0.694999"
+       inkscape:tile-cx="14.516489"
+       inkscape:tile-cy="15.743364"
+       inkscape:tile-w="16.269137"
+       inkscape:tile-h="17.307726"
+       inkscape:tile-x0="6.3819202"
+       inkscape:tile-y0="7.0895007">
+      <rect
+         style="fill:#808080;stroke:none;stroke-width:0.882649;stroke-linecap:round;stroke-linejoin:round"
+         id="rect1-5-7"
+         width="11.307035"
+         height="12.028853"
+         x="12.066483"
+         y="10.448031" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.8041px;line-height:0px;font-family:Geneva;-inkscape-font-specification:'Geneva, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#f2f2f2;stroke-width:0.882653;stroke-linecap:round;stroke-linejoin:round"
+         x="13.244305"
+         y="20.9107"
+         id="text4-1-2"><tspan
+           sodipodi:role="line"
+           id="tspan4-4-9"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:start;text-anchor:start;stroke-width:0.882653"
+           x="13.244305"
+           y="20.9107">H</tspan></text>
+    </g>
+    <g
+       id="use15"
+       transform="matrix(1.4388508,0,0,1.4388508,-10.979948,-9.8697724)"
+       class="button "
+       style="stroke-width:0.694999"
+       inkscape:tile-x0="6.3819202"
+       inkscape:tile-y0="7.0895007">
+      <rect
+         style="fill:#808080;stroke:none;stroke-width:0.882649;stroke-linecap:round;stroke-linejoin:round"
+         id="rect31"
+         width="11.307035"
+         height="12.028853"
+         x="12.066483"
+         y="10.448031" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.8041px;line-height:0px;font-family:Geneva;-inkscape-font-specification:'Geneva, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#f2f2f2;stroke-width:0.882653;stroke-linecap:round;stroke-linejoin:round"
+         x="13.244305"
+         y="20.9107"
+         id="text31"><tspan
+           sodipodi:role="line"
+           id="tspan31"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:start;text-anchor:start;stroke-width:0.882653"
+           x="13.244305"
+           y="20.9107">H</tspan></text>
+    </g>
+    <g
+       id="use16"
+       transform="matrix(1.4388508,0,0,1.4388508,-10.979948,7.4379536)"
+       class="button "
+       style="stroke-width:0.694999"
+       inkscape:tile-x0="6.3819202"
+       inkscape:tile-y0="7.0895007">
+      <rect
+         style="fill:#808080;stroke:none;stroke-width:0.882649;stroke-linecap:round;stroke-linejoin:round"
+         id="rect30"
+         width="11.307035"
+         height="12.028853"
+         x="12.066483"
+         y="10.448031" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.8041px;line-height:0px;font-family:Geneva;-inkscape-font-specification:'Geneva, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#f2f2f2;stroke-width:0.882653;stroke-linecap:round;stroke-linejoin:round"
+         x="13.244305"
+         y="20.9107"
+         id="text30"><tspan
+           sodipodi:role="line"
+           id="tspan30"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:start;text-anchor:start;stroke-width:0.882653"
+           x="13.244305"
+           y="20.9107">H</tspan></text>
+    </g>
+    <g
+       id="use17"
+       transform="matrix(1.4388508,0,0,1.4388508,-10.979948,24.74568)"
+       class="button "
+       style="stroke-width:0.694999"
+       inkscape:tile-x0="6.3819202"
+       inkscape:tile-y0="7.0895007">
+      <rect
+         style="fill:#808080;stroke:none;stroke-width:0.882649;stroke-linecap:round;stroke-linejoin:round"
+         id="rect29"
+         width="11.307035"
+         height="12.028853"
+         x="12.066483"
+         y="10.448031" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.8041px;line-height:0px;font-family:Geneva;-inkscape-font-specification:'Geneva, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#f2f2f2;stroke-width:0.882653;stroke-linecap:round;stroke-linejoin:round"
+         x="13.244305"
+         y="20.9107"
+         id="text29"><tspan
+           sodipodi:role="line"
+           id="tspan29"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:start;text-anchor:start;stroke-width:0.882653"
+           x="13.244305"
+           y="20.9107">H</tspan></text>
+    </g>
+    <g
+       id="use18"
+       transform="matrix(1.4388508,0,0,1.4388508,5.289189,-9.8697724)"
+       class="button "
+       style="stroke-width:0.694999"
+       inkscape:tile-x0="6.3819202"
+       inkscape:tile-y0="7.0895007">
+      <rect
+         style="fill:#808080;stroke:none;stroke-width:0.882649;stroke-linecap:round;stroke-linejoin:round"
+         id="rect28"
+         width="11.307035"
+         height="12.028853"
+         x="12.066483"
+         y="10.448031" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.8041px;line-height:0px;font-family:Geneva;-inkscape-font-specification:'Geneva, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#f2f2f2;stroke-width:0.882653;stroke-linecap:round;stroke-linejoin:round"
+         x="13.244305"
+         y="20.9107"
+         id="text28"><tspan
+           sodipodi:role="line"
+           id="tspan28"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:start;text-anchor:start;stroke-width:0.882653"
+           x="13.244305"
+           y="20.9107">H</tspan></text>
+    </g>
+    <g
+       id="use19"
+       transform="matrix(1.4388508,0,0,1.4388508,5.289189,7.4379536)"
+       class="button "
+       style="stroke-width:0.694999"
+       inkscape:tile-x0="6.3819202"
+       inkscape:tile-y0="7.0895007">
+      <rect
+         style="fill:#808080;stroke:none;stroke-width:0.882649;stroke-linecap:round;stroke-linejoin:round"
+         id="rect27"
+         width="11.307035"
+         height="12.028853"
+         x="12.066483"
+         y="10.448031" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.8041px;line-height:0px;font-family:Geneva;-inkscape-font-specification:'Geneva, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#f2f2f2;stroke-width:0.882653;stroke-linecap:round;stroke-linejoin:round"
+         x="13.244305"
+         y="20.9107"
+         id="text27"><tspan
+           sodipodi:role="line"
+           id="tspan27"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:start;text-anchor:start;stroke-width:0.882653"
+           x="13.244305"
+           y="20.9107">H</tspan></text>
+    </g>
+    <g
+       id="use20"
+       transform="matrix(1.4388508,0,0,1.4388508,5.289189,24.74568)"
+       class="button "
+       style="stroke-width:0.694999"
+       inkscape:tile-x0="6.3819202"
+       inkscape:tile-y0="7.0895007">
+      <rect
+         style="fill:#808080;stroke:none;stroke-width:0.882649;stroke-linecap:round;stroke-linejoin:round"
+         id="rect26"
+         width="11.307035"
+         height="12.028853"
+         x="12.066483"
+         y="10.448031" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.8041px;line-height:0px;font-family:Geneva;-inkscape-font-specification:'Geneva, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#f2f2f2;stroke-width:0.882653;stroke-linecap:round;stroke-linejoin:round"
+         x="13.244305"
+         y="20.9107"
+         id="text26"><tspan
+           sodipodi:role="line"
+           id="tspan26"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:start;text-anchor:start;stroke-width:0.882653"
+           x="13.244305"
+           y="20.9107">H</tspan></text>
+    </g>
+    <g
+       id="use21"
+       transform="matrix(1.4388508,0,0,1.4388508,21.558326,-9.8697724)"
+       class="button "
+       style="stroke-width:0.694999"
+       inkscape:tile-x0="6.3819202"
+       inkscape:tile-y0="7.0895007">
+      <rect
+         style="fill:#808080;stroke:none;stroke-width:0.882649;stroke-linecap:round;stroke-linejoin:round"
+         id="rect25"
+         width="11.307035"
+         height="12.028853"
+         x="12.066483"
+         y="10.448031" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.8041px;line-height:0px;font-family:Geneva;-inkscape-font-specification:'Geneva, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#f2f2f2;stroke-width:0.882653;stroke-linecap:round;stroke-linejoin:round"
+         x="13.244305"
+         y="20.9107"
+         id="text25"><tspan
+           sodipodi:role="line"
+           id="tspan25"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:start;text-anchor:start;stroke-width:0.882653"
+           x="13.244305"
+           y="20.9107">H</tspan></text>
+    </g>
+    <g
+       id="use22"
+       transform="matrix(1.4388508,0,0,1.4388508,21.558326,7.4379536)"
+       class="button "
+       style="stroke-width:0.694999"
+       inkscape:tile-x0="6.3819202"
+       inkscape:tile-y0="7.0895007">
+      <rect
+         style="fill:#808080;stroke:none;stroke-width:0.882649;stroke-linecap:round;stroke-linejoin:round"
+         id="rect24"
+         width="11.307035"
+         height="12.028853"
+         x="12.066483"
+         y="10.448031" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.8041px;line-height:0px;font-family:Geneva;-inkscape-font-specification:'Geneva, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#f2f2f2;stroke-width:0.882653;stroke-linecap:round;stroke-linejoin:round"
+         x="13.244305"
+         y="20.9107"
+         id="text24"><tspan
+           sodipodi:role="line"
+           id="tspan24"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:start;text-anchor:start;stroke-width:0.882653"
+           x="13.244305"
+           y="20.9107">H</tspan></text>
+    </g>
+    <g
+       id="use23"
+       transform="matrix(1.4388508,0,0,1.4388508,21.558326,24.74568)"
+       class="button "
+       style="stroke-width:0.694999"
+       inkscape:tile-x0="6.3819202"
+       inkscape:tile-y0="7.0895007">
+      <rect
+         style="fill:#808080;stroke:none;stroke-width:0.882649;stroke-linecap:round;stroke-linejoin:round"
+         id="rect23"
+         width="11.307035"
+         height="12.028853"
+         x="12.066483"
+         y="10.448031" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.8041px;line-height:0px;font-family:Geneva;-inkscape-font-specification:'Geneva, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#f2f2f2;stroke-width:0.882653;stroke-linecap:round;stroke-linejoin:round"
+         x="13.244305"
+         y="20.9107"
+         id="text23"><tspan
+           sodipodi:role="line"
+           id="tspan23"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0px;font-family:'Gill Sans';-inkscape-font-specification:'Gill Sans';text-align:start;text-anchor:start;stroke-width:0.882653"
+           x="13.244305"
+           y="20.9107">H</tspan></text>
+    </g>
+  </g>
+</svg>

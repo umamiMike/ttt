@@ -1,0 +1,53 @@
+<html>
+
+<head>
+	<style>
+		a,
+		button,
+		input,
+		select,
+		embed,
+		.button,
+		textarea {
+			-webkit-tap-highlight-color: transparent;
+		}
+	</style>
+
+	<head />
+
+<body style="margin: 0;">
+	<embed type="image/svg+xml" src="game.svg" id="game" style="margin: 0;">
+	<script>
+		function game() {
+
+			function cellClick(event) {
+				const el = event.target
+				feedback.textContent = `You clicked the ${index} button ${el.amt += 1} times`
+				console.log(text_element)
+				let foo = el.amt % 2 == 0 ? "X" : "O"
+				text_element.textContent = foo
+			};
+			ws = new WebSocket(url
+			let buttons = document.getElementsByClassName('button');
+			let embed = document.getElementById("game");
+			embed.style.cursor = 'pointer'
+			let game_svg = embed.getSVGDocument();
+			const feedback = game_svg.getElementById('feedback')
+			feedback.textContent = ``
+			const ebuttons = [...game_svg.getElementsByClassName('button')]
+			ebuttons.forEach((el, index) => {
+				el.style.cursor = 'pointer'
+				el.amt = 0
+				let el_txt = ""
+				let text_element = el.lastElementChild
+				text_element.textContent = ""
+				el.addEventListener('click', cellClick));
+		});
+
+
+		};
+		window.onload = game;
+	</script>
+</body>
+
+</html>

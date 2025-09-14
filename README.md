@@ -2,10 +2,33 @@
 
 ## installation and setup
 
+### installing mqtt broker
+
+On windows
+
+On mac
+
+brew install mosquitto
+
+`mosquitto -c "$(pwd)/broker/mosquitto.conf" -v
+On linux
+
+
+if successful you should see something like 
+
+```sh
+1757813654: mosquitto version 2.0.22 starting
+1757813654: Config loaded from ./broker/mosquitto.conf.
+1757813654: Opening ipv6 listen socket on port 1883.
+1757813654: Opening ipv4 listen socket on port 1883.
+1757813654: Opening websockets listen socket on port 9001.
+1757813654: mosquitto version 2.0.22 running
+```
+
 1. clone from `{TODO: }` and cd into the directory
 2. `python -m pip install -r requirements.txt`
 3. run `python main.py`
-4. from the terminal 
+
 ## Design Choices:
 This is a demo game of tic-tac-toe.  
 It will have core game logic management, 

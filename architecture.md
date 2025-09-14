@@ -43,8 +43,7 @@ def possible_wins(self)
       all rows and columns and diagonals, to be used to calculate the winner
     """
     ra = self.board[:2]
-    rb = self.board[3:5]
-    rc = self.board[6:]
+    rb = self.board[3:5] rc = self.board[6:]
     ca = [self.board[i] for i in (0,3,6)]
     cb = list(map(lambda i: i+1, ca)
     cc = list(map(lambda i: i+1, cb)
@@ -115,6 +114,10 @@ o·x
 xxo
 oxo
 
+
+## broker
+
+A mqtt broker allowing pubsub between clients and server
 
 ## player
 
