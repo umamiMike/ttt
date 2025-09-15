@@ -1,52 +1,166 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Tic-Tac-Toe</title>
 	<style>
-		a,
-		button,
-		input,
-		select,
-		embed,
-		.button,
-		textarea {
-			-webkit-tap-highlight-color: transparent;
+		body {
+			font-family: Arial, sans-serif;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-top: 50px;
+		}
+
+		h1 {
+			margin-bottom: 20px;
+		}
+
+		#board {
+			display: grid;
+			grid-template-columns: repeat(3, 100px);
+			grid-template-rows: repeat(3, 100px);
+			gap: 5px;
+		}
+
+		.cell {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 2.5rem;
+			background-color: #f0f0f0;
+			cursor: pointer;
+			user-select: none;
+		}
+
+		.cell:hover {
+			background-color: #ddd;
+		}
+
+		#status {
+			margin-top: 20px;
+		}
+
+		#reset {
+			margin-top: 10px;
+			padding: 5px 15px;
+			font-size: 1rem;
 		}
 	</style>
-
 </head>
 
-<body style="margin: 0;">
-	<embed type="image/svg+xml" src="game.svg" id="game" style="margin: 0;">
+<body>
+
+	<h1>Tic-Tac-Toe</h1>
+	<div id="board"></div>
+	<div id="status"></div>
+	<div id="player_x"></div>
+	<div id="player_y"></div>
+	<button id="reset">Reset</button>
+	<button id="query">query</button>
+
+	<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
 	<script>
-		console.log("i got loaded")
+		const client = mqtt.connect("ws://localhost:9001"); // Mosquitto WS listener
 
-		function cellClick(el, index, conn, event) {
-			// feedback.textContent = `You clicked the ${el.index} button ${el.amt += 1} times`
-			let foo = el.amt % 2 == 0 ? "X" : "O"
-			el.lastElementChild.textContent = foo
-		};
-		function game() {
-			// ws = new WebSocket(url);
-			let buttons = document.getElementsByClassName('button');
-			let embed = document.getElementById("game");
-			embed.style.cursor = 'pointer'
-			let game_svg = embed.getSVGDocument();
-			const feedback = game_svg.getElementById('feedback')
-			feedback.textContent = ``
-			const ebuttons = [...game_svg.getElementsByClassName('button')]
-			ebuttons.forEach((el, index) => {
-				el.style.cursor = 'pointer'
-				el.amt = 0
-				let el_txt = ""
-				let text_element = el.lastElementChild
-				text_element.textContent = ""
-				el.addEventListener('click', cellClick.bind(null, el, index));
+		client.on("connect", () => {
+			console.log("Connected to broker!");
+			client.subscribe("game/state", (err) => {
+				if (!err) {
+					client.publish("game/state", "Hello from browser 1");
+				}
 			});
+		});
+
+		client.on("message", (topic, message) => {
+			console.log(topic, message.toString());
+		});
+
+		client.on("error", (topic, message) => {
+			console.log(topic, message.toString());
+		});
+
+		const boardElement = document.getElementById('board');
+		const statusElement = document.getElementById('status');
+		const player_x = document.getElementById('player_x');
+		const resetButton = document.getElementById('reset');
+		const query_button = document.getElementById('query');
 
 
-		};
-		window.onload = game;
+		let board = Array(9).fill('');
+		let bs = Array(9).fill(0);
+		let currentPlayer = 'X';
+		let gameOver = false;
+
+		function playerInfo() {
+			const name = "mike"
+			const name_prompt = document.createElement('input');
+			name_prompt.placeholder = "Player Name"
+			name_prompt.addEventListener("keypress", (e) => {
+				if (e.key === "Enter") {
+					const name = document.createElement('div')
+					name.textContent = name_prompt.value
+					const par = name_prompt.parentElement
+					par.appendChild(name)
+					// name.textContent = name_prompt.value
+					name_prompt.remove()
+
+				}
+			});
+			player_x.appendChild(name_prompt)
+
+		}
+
+		function renderBoard() {
+			boardElement.innerHTML = '';
+			board.forEach((cell, i) => {
+				const cellDiv = document.createElement('div');
+				cellDiv.classList.add('cell');
+				cellDiv.textContent = cell;
+				cellDiv.addEventListener('click', () => handleMove(i));
+				boardElement.appendChild(cellDiv);
+			});
+		}
+
+		function handleMove(index) {
+			if (gameOver || board[index]) return;
+			board[index] = currentPlayer;
+			if (checkWin(currentPlayer)) {
+				statusElement.textContent = `${currentPlayer} wins!`;
+				gameOver = true;
+			} else if (board.every(cell => cell)) {
+				statusElement.textContent = "It's a draw!";
+				gameOver = true;
+			} else {
+				statusElement.textContent = `Next turn: ${currentPlayer}`;
+			}
+			renderBoard();
+		}
+
+		function checkWin(player) {
+		}
+
+		resetButton.addEventListener('click', () => {
+			board = Array(9).fill('');
+			currentPlayer = 'X';
+			gameOver = false;
+			statusElement.textContent = `Next turn: ${currentPlayer}`;
+			renderBoard();
+		});
+
+		query_button.addEventListener('click', (e) => {
+			bn = board.map(item => {return item === "X" ? 1 : item === "O" ? -1 : 0})
+			client.publish("game/state", JSON.stringify(bn), {qos: 1});
+
+		});
+		// Initial render
+		renderBoard();
+		playerInfo();
+		statusElement.textContent = `Next turn: ${currentPlayer}`;
 	</script>
+
 </body>
 
 </html>
