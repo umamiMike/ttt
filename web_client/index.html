@@ -69,7 +69,8 @@
 			console.log("Connected to broker!");
 			client.subscribe("game/state", (err) => {
 				if (!err) {
-					client.publish("game/state", "Hello from browser 1");
+					msg = {action: "browser_connected", player: "", data: ""}
+					client.publish("game/move", JSON.stringify(msg));
 				}
 			});
 		});
@@ -106,37 +107,40 @@
 					par.appendChild(name)
 					// name.textContent = name_prompt.value
 					name_prompt.remove()
-
+					connect(name.textContent)
+					makeClickable()
 				}
 			});
 			player_x.appendChild(name_prompt)
 
 		}
-
-		function renderBoard() {
+		function connect(name) {
+			msg = {action: "connect", player: name, data: ""}
+			client.publish("game/move", JSON.stringify(msg), {qos: 1});
+		}
+		function initBoard() {
 			boardElement.innerHTML = '';
 			board.forEach((cell, i) => {
 				const cellDiv = document.createElement('div');
 				cellDiv.classList.add('cell');
 				cellDiv.textContent = cell;
-				cellDiv.addEventListener('click', () => handleMove(i));
 				boardElement.appendChild(cellDiv);
+			});
+		}
+		function makeClickable() {
+			cells = document.querySelectorAll('.cell')
+			console.log(cells)
+			cells.forEach((cell, i) => {
+				cell.addEventListener('click', () => handleMove(i));
 			});
 		}
 
 		function handleMove(index) {
-			if (gameOver || board[index]) return;
-			board[index] = currentPlayer;
-			if (checkWin(currentPlayer)) {
-				statusElement.textContent = `${currentPlayer} wins!`;
-				gameOver = true;
-			} else if (board.every(cell => cell)) {
-				statusElement.textContent = "It's a draw!";
-				gameOver = true;
-			} else {
-				statusElement.textContent = `Next turn: ${currentPlayer}`;
-			}
-			renderBoard();
+			console.log(index)
+			const px = document.getElementById("player_x")
+			const name = px.textContent
+			msg = {action: "take_turn", player: name, data: index}
+			client.publish("game/move", JSON.stringify(msg), {qos: 1});
 		}
 
 		function checkWin(player) {
@@ -156,7 +160,7 @@
 
 		});
 		// Initial render
-		renderBoard();
+		initBoard();
 		playerInfo();
 		statusElement.textContent = `Next turn: ${currentPlayer}`;
 	</script>
