@@ -69,7 +69,7 @@
 			console.log("Connected to broker!");
 			client.subscribe("game/state", (err) => {
 				if (!err) {
-					msg = {action: "browser_connected", player: "", data: ""}
+					msg = {action: "browser_connect", player: "", data: ""}
 					client.publish("game/move", JSON.stringify(msg));
 				}
 			});
@@ -107,15 +107,15 @@
 					par.appendChild(name)
 					// name.textContent = name_prompt.value
 					name_prompt.remove()
-					connect(name.textContent)
+					join_game(name.textContent)
 					makeClickable()
 				}
 			});
 			player_x.appendChild(name_prompt)
 
 		}
-		function connect(name) {
-			msg = {action: "connect", player: name, data: ""}
+		function join_game(name) {
+			msg = {action: "join", data: name}
 			client.publish("game/move", JSON.stringify(msg), {qos: 1});
 		}
 		function initBoard() {
@@ -139,7 +139,7 @@
 			console.log(index)
 			const px = document.getElementById("player_x")
 			const name = px.textContent
-			msg = {action: "take_turn", player: name, data: index}
+			msg = {action: "take_turn", data: {player: name, cell: index}}
 			client.publish("game/move", JSON.stringify(msg), {qos: 1});
 		}
 
