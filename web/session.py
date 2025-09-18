@@ -32,6 +32,9 @@ class Session:
 
         return self.players
 
+    def new_game(self):
+        self.game = Game()
+
     def players_data(self):
         pd = [{"player": p.name, "order": p.order} for p in self.players]
         return pd

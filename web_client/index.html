@@ -39,7 +39,10 @@
 			grid-template-columns: 1fr 5fr;
 		}
 
-		.player.p {}
+		.player.p {
+
+			gap: 8px;
+		}
 
 		.cell {
 			display: flex;
@@ -55,18 +58,19 @@
 			background-color: #ddd;
 		}
 
+		#reset {
+			margin-top: 40px;
+			padding: 5px 15px;
+			font-size: 1rem;
+		}
+
+
 		#status {
 			margin-top: 20px;
 		}
 
 		.active {
 			background-color: #f0f0f0;
-		}
-
-		#reset {
-			margin-top: 10px;
-			padding: 5px 15px;
-			font-size: 1rem;
 		}
 	</style>
 </head>
@@ -76,15 +80,12 @@
 	<h1>Tic-Tac-Toe</h1>
 	<div id="board"></div>
 	<div id="status"></div>
-	<div id="players">
-	</div>
-	<div id="info">
+	<div id="players"> </div>
+	<div id="info"></div>
+	<button id="reset">Reset Game</button>
 
-		<!-- <button id="reset">Reset</button> -->
-		<!-- <button id="query">query</button> -->
-
-		<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
-		<script src="app.js"></script>
+	<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+	<script src="app.js"></script>
 </body>
 
 </html>

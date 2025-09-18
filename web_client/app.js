@@ -10,20 +10,15 @@
 
 		client.on("message", (topic, message) => {
 			const response = JSON.parse(message.toString())
-			console.log("all response data")
-			console.log(response)
 			if ("board_state" in response.data) {
 				update_board(response.data.board_state)
 			}
 			if ("player" in response.data) {
+				console.log(response)
 				updatePlayer(response.data.player)
 			}
 			if ("players" in response.data) {
 				create_players(response.data.players)
-				if (response.data.players.length < 2){
-					playerForm(infoElement)
-
-				}
 			}
 			switch (response.state) {
 				case "connected":
@@ -39,8 +34,8 @@
 					// console.log(response.data)
 					break;
 				case "full":
+					remove_form()
 					console.log("game full")
-n
 					break;
 				case "turn_taken":
 					console.log("turn taken")
@@ -67,6 +62,7 @@ n
 		const players_ui = document.getElementById('players');
 		const resetButton = document.getElementById('reset');
 		const query_button = document.getElementById('query');
+		const reset_button = document.getElementById('reset');
 
 		let board = Array(9).fill('');
 		let bs = Array(9).fill(0);
@@ -90,8 +86,15 @@ n
 			parent.appendChild(name_prompt)
 		}
 
+
+		function remove_form() {
+
+			const form = document.getElementById('player_input');
+			form.remove()
+		}
 		function playerForm(parent) {
 			const name_prompt = document.createElement('input');
+			name_prompt.id = "player_input"
 			name_prompt.placeholder = `Join the game`
 			name_prompt.addEventListener("keypress", (e) => {
 				if (e.key === "Enter") {
@@ -108,6 +111,7 @@ n
 
 
 		function create_players(incoming_players) {
+			players_ui.replaceChildren()
 			incoming_players.forEach( (player) => {
 				create_player(player)
 			})
@@ -117,9 +121,7 @@ n
 		function create_player(player){
 			const player_ui = document.createElement('div');
 			player_ui.classList.add('player')
-
 			player_ui.id = player
-			player_ui.replaceChildren()
 			const name_label = document.createElement('p');
 			const name_div = document.createElement('p');
 			name_label.textContent = "player: "
@@ -130,7 +132,6 @@ n
 			players_ui.appendChild(player_ui)	
 
 		}
-
 
 		function join_game(name) {
 
@@ -179,10 +180,18 @@ n
 			client.publish("game/move", JSON.stringify(msg), {qos: 0});
 
 		}
+
+		reset_button.addEventListener('click', () => reset_game());
+ 		function reset_game(){
+
+			msg = {action: "reset", data: { } }
+			client.publish("game/move", JSON.stringify(msg), {qos: 0});
+
+		}
+
+
 		initBoard();
-		create_player("foo")
-		create_player("bar")
-		create_player("baz")
+		playerForm(infoElement)
 		// initPlayer(player_x);
 		// initPlayer(player_o);
 		// statusElement.textContent = `Next turn: ${currentPlayer}`;

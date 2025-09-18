@@ -31,6 +31,8 @@ class BackendClient(mqtt.Client):
                 self.handle_join(**message["data"])
             case "take_turn":
                 self.handle_turn(**message["data"])
+            case "reset":
+                self.handle_reset()
             case _:
                 print(message["action"])
 
@@ -42,36 +44,54 @@ class BackendClient(mqtt.Client):
             ),
         )
 
+    def handle_reset(self):
+        self.session.new_game()
+        self.publish(
+            TOPIC_STATE,
+            json.dumps(
+                {
+                    "state": "reset",
+                    "data": {"players": self.session.players_data()},
+                    "board_state": self.session.game.board_data(),
+                }
+            ),
+        )
+
     def handle_join(self, name):
 
-        if len(self.session.players) > 1:
-            self.session = Session()
+        # full
+        if len(self.session.players) == 2:
+            self.publish(
+                TOPIC_STATE,
+                json.dumps(
+                    {"state": "full", "data": {"players": self.session.players_data()}}
+                ),
+            )
 
         self.session.join(name)
-
         self.publish(
             TOPIC_STATE,
             json.dumps(
                 {"state": "joined", "data": {"players": self.session.players_data()}}
             ),
         )
-        print("player joined: ", name)
-        if len(self.session.players) == 2:
-            print(self.session.players)
-            print("session is full and game can begin: ", name)
-
-            self.publish(
-                TOPIC_STATE,
-                json.dumps(
-                    {
-                        "state": "started",
-                        "data": {
-                            "board_state": self.session.game.board_data(),
-                            "players": self.session.players_data(),
-                        },
-                    }
-                ),
-            )
+        # print("player joined: ", name)
+        # if len(self.session.players) == 2:
+        #     print(self.session.players)
+        #     print("session is full and game can begin: ", name)
+        #
+        #     self.publish(
+        #         TOPIC_STATE,
+        #         json.dumps(
+        #             {
+        #                 "state": "started",
+        #                 "data": {
+        #                     "board_state": self.session.game.board_data(),
+        #                     "players": self.session.players_data(),
+        #                 },
+        #             }
+        #         ),
+        #     )
 
     def handle_turn(self, player, cell):
         try:
