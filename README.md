@@ -9,20 +9,13 @@ I have wanted to explore connecting  distributed clients using an event-driven s
 I use big frameworks a ton. For a change I wanted to back to buildng things
 from the ground up, with as few 3rd party libraries as possible.
 This is meant to demo illustrating, the concepts of an `event-driven`
+This is far from what I would consider complete, but it functions.  
 
 ## Design Choices:
 
-It will have core game logic management, 
-- a web server for hosting an api 
 - A web client for a player interface
-- A `curses` based ui for a terminal interface.  
+- a web server for hosting the web client
 - communication will be done via mqtt broker, with the web server, web client, communicating via event messages
-
-
-## Thoughts
-
-This is far from what I would consider complete, but it functions.
-
 
 ## dependencies
 
@@ -30,12 +23,11 @@ This is far from what I would consider complete, but it functions.
 `mqttjs` JS client
 `mosquitto` mqtt service
 
-
 ## installation and setup
 
-**installing mqtt broker**
+### installing mqtt broker
 
-On windows
+**On windows**
 [latest mosquitto installer](https://mosquitto.org/files/binary/win64/mosquitto-2.0.22-install-windows-x64.exe)
 
 On mac
@@ -83,6 +75,7 @@ if successful you should see something like
 **start the static web server**
 
 for web client
+
 ```
 python -m web.server
 ```
@@ -104,6 +97,6 @@ Now you will be able to play tictactoe with 2 seperate browser clients
 - [ ] make session matchmaking.  Currently there is only a single session, as this was a toy demo.
 - [ ] create a cli client
 
-        I had originally intended to create a game you could connect to via a cli OR web client. I have only built the web interface.
+> I had originally intended to create a game you could connect to via a cli OR web client. I have only built the web interface.
 
 I have a spike of a curses based interface

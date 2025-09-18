@@ -14,6 +14,7 @@ class MainHandler(SimpleHTTPRequestHandler):
         self.send_header("Content-type", content_type)
         self.end_headers()
 
+    # unused in this impelementatiion
     def do_GET(self):
         if self.path.startswith("/api/"):
             self._set_headers()
