@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from core.game import Game
+from core.game import Game, GameOver
 
 
 @dataclass
@@ -20,21 +20,26 @@ class Session:
 
     def join(self, player):
 
-        if len(self.players) > 2:
-            return "too many players"
+        if len(self.players) > 1:
+            return "none", 0
 
         if not self.players:
-            self.players.append(Player(name=player, order=1))
+            player_ob = Player(name=player, order=1)
+            self.players.append(player_ob)
         else:
-            self.players.append(Player(name=player, order=-1))
+            player_ob = Player(name=player, order=-1)
+            self.players.append(player_ob)
 
-        print("players: ", self.players)
-        return True
+        return player_ob.name, player_ob.order
 
     def take_turn(self, player: str, cell):
         player = next((plyr for plyr in self.players if plyr.name == player), None)
         if player:
-            self.game.take_turn(cell, player.order)
+            try:
+                self.game.take_turn(cell, player.order)
+            except GameOver as e:
+                player.games_won += 1
+                print(player)
         return self.game.board_data(), player.name
 
 

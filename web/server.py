@@ -2,14 +2,16 @@ import os
 from http.server import HTTPServer, BaseHTTPRequestHandler, SimpleHTTPRequestHandler
 import json
 from web.session import Session
+
 # from broker.broker import WSClient, ServerClient
 PORT = 8005
+
 
 class MainHandler(SimpleHTTPRequestHandler):
 
     def _set_headers(self, code=200, content_type="application/json"):
         self.send_response(code)
-        self.send_header("Content-type",content_type)
+        self.send_header("Content-type", content_type)
         self.end_headers()
 
     def do_GET(self):
@@ -21,7 +23,7 @@ class MainHandler(SimpleHTTPRequestHandler):
         else:
             if self.path == "/":
                 self.path = "index.html"
-                    
+
             return super().do_GET()
 
 
@@ -30,7 +32,6 @@ def run(port=PORT):
     httpd = HTTPServer(("", port), MainHandler)
     print(f"serving web client from http://localhost:{port}")
     httpd.serve_forever()
-
 
 
 if __name__ == "__main__":

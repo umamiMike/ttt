@@ -1,6 +1,6 @@
 import paho.mqtt.client as mqtt
 from web.session import Session
-from core.game import WrongTurn, WrongFirst
+from core.game import WrongTurn, WrongFirst, GameOver
 import json
 import uuid
 
@@ -39,11 +39,14 @@ class BackendClient(mqtt.Client):
                 print(message["action"])
 
     def handle_join(self, name):
-        joined = self.session.join(name)
-        if joined:
+        player, order = self.session.join(name)
+        print(player, order)
+        if order:
             self.publish(
                 TOPIC_STATE,
-                json.dumps({"state": str(joined), "data": {"player": name}}),
+                json.dumps(
+                    {"state": "joined", "data": {"player": name, "order": order}}
+                ),
             )
             self.publish(
                 TOPIC_STATE,
@@ -53,6 +56,11 @@ class BackendClient(mqtt.Client):
                         "data": {"board_state": self.session.game.board_data()},
                     }
                 ),
+            )
+        else:
+            self.publish(
+                TOPIC_STATE,
+                json.dumps({"state": "full", "data": {"player": name}}),
             )
 
     def handle_turn(self, player, cell):
@@ -81,10 +89,19 @@ class BackendClient(mqtt.Client):
                 }
             )
         except WrongTurn as e:
-            print("should log this error")
             json.dumps(
                 {
                     "state": "no_turn",
+                    "data": {
+                        "board_state": self.session.game.board_data(),
+                        "player": player,
+                    },
+                }
+            )
+        except GameOver as e:
+            json.dumps(
+                {
+                    "state": "game_over",
                     "data": {
                         "board_state": self.session.game.board_data(),
                         "player": player,

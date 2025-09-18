@@ -25,6 +25,7 @@
 		const boardElement = document.getElementById('board');
 		const statusElement = document.getElementById('status');
 		const player_x = document.getElementById('player_x');
+		const player_y = document.getElementById('player_y');
 		const resetButton = document.getElementById('reset');
 		const query_button = document.getElementById('query');
 
@@ -68,18 +69,17 @@
 		}
 		function makeClickable() {
 			cells = document.querySelectorAll('.cell')
-			console.log(cells)
 			cells.forEach((cell, i) => {
 				cell.addEventListener('click', () => handleMove(i));
 			});
 		}
 
-		function update_board(cells) {
+		function update_board(board_state) {
 			cells = document.querySelectorAll('.cell')
-			console.log(cells)
 			cells.forEach((cell, i) => {
-				const cv = cells[i]
-				// cell.textContent = cv ===  1 ? "X" : cells[i] === -1 : "O" : " " 
+				const val = board_state[i]
+				const cell_content = val === 1 ? "X" : val === -1 ? "O" : ""
+				cell.textContent = cell_content
 			});
 			makeClickable()
 			}
@@ -93,22 +93,20 @@
 
 		}
 
-		function checkWin(player) {
-		}
 
-		resetButton.addEventListener('click', () => {
-			board = Array(9).fill('');
-			currentPlayer = 'X';
-			gameOver = false;
-			statusElement.textContent = `Next turn: ${currentPlayer}`;
-			renderBoard();
-		});
+		// resetButton.addEventListener('click', () => {
+		// 	board = Array(9).fill('');
+		// 	currentPlayer = 'X';
+		// 	gameOver = false;
+		// 	statusElement.textContent = `Next turn: ${currentPlayer}`;
+		// 	renderBoard();
+		// });
 
-		query_button.addEventListener('click', (e) => {
-			bn = board.map(item => {return item === "X" ? 1 : item === "O" ? -1 : 0})
-			client.publish("game/state", JSON.stringify(bn), {qos: 1});
+		// query_button.addEventListener('click', (e) => {
+		// 	bn = board.map(item => {return item === "X" ? 1 : item === "O" ? -1 : 0})
+		// 	client.publish("game/state", JSON.stringify(bn), {qos: 1});
 
-		});
+		// });
 		// Initial render
 		initBoard();
 		playerInfo();
