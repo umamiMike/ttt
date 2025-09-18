@@ -78,28 +78,25 @@ class BackendClient(mqtt.Client):
                 {"state": "joined", "data": {"players": self.session.players_data()}}
             ),
         )
-        # print("player joined: ", name)
-        # if len(self.session.players) == 2:
-        #     print(self.session.players)
-        #     print("session is full and game can begin: ", name)
-        #
-        #     self.publish(
-        #         TOPIC_STATE,
-        #         json.dumps(
-        #             {
-        #                 "state": "started",
-        #                 "data": {
-        #                     "board_state": self.session.game.board_data(),
-        #                     "players": self.session.players_data(),
-        #                 },
-        #             }
-        #         ),
-        #     )
+
+        if len(self.session.players) == 2:
+            self.publish(
+                TOPIC_STATE,
+                json.dumps(
+                    {
+                        "state": "started",
+                        "data": {
+                            "board_state": self.session.game.board_data(),
+                            "players": self.session.players_data(),
+                            "starting_player": self.session.players_data()[0],
+                        },
+                    }
+                ),
+            )
 
     def handle_turn(self, player, cell):
         try:
             board_state, player = self.session.take_turn(player, cell)
-            print(board_state, player)
             if board_state == "winner":
                 self.publish(
                     TOPIC_STATE,

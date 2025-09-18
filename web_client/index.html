@@ -31,18 +31,16 @@
 			grid-template-columns: repeat(1, 400px);
 			/* grid-template-rows: repeat(1); */
 			gap: 5px;
+			margin-top: 10px;
 		}
 
 		.player {
 
 			display: grid;
-			grid-template-columns: 1fr 5fr;
+			grid-template-columns: 1fr 2fr;
+			padding: 4px;
 		}
 
-		.player.p {
-
-			gap: 8px;
-		}
 
 		.cell {
 			display: flex;
@@ -67,10 +65,15 @@
 
 		#status {
 			margin-top: 20px;
+			inde
 		}
 
 		.active {
 			background-color: #f0f0f0;
+		}
+
+		.winner {
+			background-color: #ffdeb4;
 		}
 	</style>
 </head>
@@ -79,10 +82,10 @@
 
 	<h1>Tic-Tac-Toe</h1>
 	<div id="board"></div>
-	<div id="status"></div>
 	<div id="players"> </div>
 	<div id="info"></div>
 	<button id="reset">Reset Game</button>
+	<div id="status"></div>
 
 	<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
 	<script src="app.js"></script>
