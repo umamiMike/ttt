@@ -1,10 +1,8 @@
-
 		const client = mqtt.connect("ws://localhost:9001"); // Mosquitto WS listener
-
 		client.on("connect", () => {
 			client.subscribe("game/state", (err) => {
 				if (!err) {
-					msg = {action: "browser_connect", data: { }}
+					msg = {action: "browser_connect", data: { msg: "connecto" }}
 					client.publish("game/move", JSON.stringify(msg));
 				}
 			});
@@ -12,27 +10,49 @@
 
 		client.on("message", (topic, message) => {
 			const response = JSON.parse(message.toString())
+			console.log("all response data")
+			console.log(response)
 			if ("board_state" in response.data) {
 				update_board(response.data.board_state)
 			}
+			if ("player" in response.data) {
+				updatePlayer(response.data.player)
+			}
+			if ("players" in response.data) {
+				create_players(response.data.players)
+				if (response.data.players.length < 2){
+					playerForm(infoElement)
+
+				}
+			}
 			switch (response.state) {
+				case "connected":
+					console.log(response)
+					//create_players(plyrs)
+					break;
 				case "joined":
 					console.log(response)
-					const plyrs = response.data.players;
-					create_players(plyrs)
+					//create_players(plyrs)
+					break;
+				case "started":
+					console.log("started")
+					// console.log(response.data)
 					break;
 				case "full":
 					console.log("game full")
-
+n
 					break;
 				case "turn_taken":
 					console.log("turn taken")
 					console.log(response.data)
 					break;
+				case "game_won":
+					console.log("game won")
+					console.log(response.data)
+					break;
 				default:
 					console.log("unhandled")
 					console.log(response);
-
 			}
 			
 		});
@@ -41,59 +61,81 @@
 			console.log(topic, message.toString());
 		});
 
+		const infoElement = document.getElementById("info")
 		const boardElement = document.getElementById('board');
 		const statusElement = document.getElementById('status');
-		const player_x = document.getElementById('player_x');
-		const player_y = document.getElementById('player_y');
+		const players_ui = document.getElementById('players');
 		const resetButton = document.getElementById('reset');
 		const query_button = document.getElementById('query');
 
-
 		let board = Array(9).fill('');
 		let bs = Array(9).fill(0);
-		let currentPlayer = 'X';
-		let gameOver = false;
 
-		function playerInfo(parent) {
+		// hacky... this is just for the current player session
+		let player_name = ""
+
+		function initPlayer(parent) {
 			const name_prompt = document.createElement('input');
-			name_prompt.placeholder = "Player Name"
+			name_prompt.placeholder = `Join the game as ${parent.id}`
 			name_prompt.addEventListener("keypress", (e) => {
 				if (e.key === "Enter") {
 					const name = document.createElement('div')
 					name.textContent = name_prompt.value
+					player_name = name_prompt.value
+					//need to delete the prompt from the other player
 					join_game(name_prompt.value)
-					// const par = name_prompt.parentElement
-					// par.appendChild(name)
-					// // name.textContent = name_prompt.value
 					name_prompt.remove()
-					// makeClickable()
 				}
 			});
 			parent.appendChild(name_prompt)
-
 		}
+
+		function playerForm(parent) {
+			const name_prompt = document.createElement('input');
+			name_prompt.placeholder = `Join the game`
+			name_prompt.addEventListener("keypress", (e) => {
+				if (e.key === "Enter") {
+					const name = document.createElement('div')
+					name.textContent = name_prompt.value
+					player_name = name_prompt.value
+					//need to delete the prompt from the other player
+					join_game(name_prompt.value)
+					name_prompt.remove()
+				}
+			});
+			parent.appendChild(name_prompt)
+		}
+
+
 		function create_players(incoming_players) {
-	
 			incoming_players.forEach( (player) => {
 				create_player(player)
 			})
 
 		}
+		
 		function create_player(player){
+			const player_ui = document.createElement('div');
+			player_ui.classList.add('player')
 
-			const player_id = player.order === 1 ? "player_x" :  "player_o" 
-			const player_ui = document.getElementById(player_id);
-			const name_label = document.createElement('div');
-			name_label.textContent = player_id
-			const name_div = document.createElement('div');
+			player_ui.id = player
+			player_ui.replaceChildren()
+			const name_label = document.createElement('p');
+			const name_div = document.createElement('p');
+			name_label.textContent = "player: "
+			name_div.id = player.player
 			name_div.textContent = player.player
 			player_ui.appendChild(name_label)
 			player_ui.appendChild(name_div)
+			players_ui.appendChild(player_ui)	
+
 		}
 
+
 		function join_game(name) {
+
 			msg = {action: "join", data: {name: name}}
-			client.publish("game/move", JSON.stringify(msg), {qos: 1});
+			client.publish("game/move", JSON.stringify(msg), {qos: 0});
 		}
 		function initBoard() {
 			boardElement.innerHTML = '';
@@ -102,12 +144,7 @@
 				cellDiv.classList.add('cell');
 				cellDiv.textContent = cell;
 				boardElement.appendChild(cellDiv);
-			});
-		}
-		function makeClickable() {
-			cells = document.querySelectorAll('.cell')
-			cells.forEach((cell, i) => {
-				cell.addEventListener('click', () => handleMove(i));
+				cellDiv.addEventListener('click', () => handleMove(i));
 			});
 		}
 
@@ -116,36 +153,36 @@
 			cells.forEach((cell, i) => {
 				const val = board_state[i]
 				const cell_content = val === 1 ? "X" : val === -1 ? "O" : ""
-				cell.textContent = cell_content
+				cell.textContent = cell_content;
 			});
-			makeClickable()
 			}
 
-		function handleMove(index) {
-			console.log(index)
-			const px = document.getElementById("player_x")
-			const name = px.textContent
-			msg = {action: "take_turn", data: {player: name, cell: index}}
-			client.publish("game/move", JSON.stringify(msg), {qos: 1});
+		function updatePlayer(player) {
+			const players_ui = document.getElementById('players');
+			for (const child of players_ui.children) {
+				if (child.lastChild.id == player) {
+					child.classList.remove('active');
+				}
+				else {
+					child.classList.add('active');
+
+				}
+
+			}
+			
+
 
 		}
 
+		function handleMove(index) {
+			msg = {action: "take_turn", data: {player: player_name, cell: index}}
+			client.publish("game/move", JSON.stringify(msg), {qos: 0});
 
-		// resetButton.addEventListener('click', () => {
-		// 	board = Array(9).fill('');
-		// 	currentPlayer = 'X';
-		// 	gameOver = false;
-		// 	statusElement.textContent = `Next turn: ${currentPlayer}`;
-		// 	renderBoard();
-		// });
-
-		// query_button.addEventListener('click', (e) => {
-		// 	bn = board.map(item => {return item === "X" ? 1 : item === "O" ? -1 : 0})
-		// 	client.publish("game/state", JSON.stringify(bn), {qos: 1});
-
-		// });
-		// Initial render
+		}
 		initBoard();
-		playerInfo(player_x);
-		playerInfo(player_o);
+		create_player("foo")
+		create_player("bar")
+		create_player("baz")
+		// initPlayer(player_x);
+		// initPlayer(player_o);
 		// statusElement.textContent = `Next turn: ${currentPlayer}`;

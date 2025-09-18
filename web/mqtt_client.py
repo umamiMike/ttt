@@ -23,16 +23,24 @@ class BackendClient(mqtt.Client):
 
     def on_message(self, client, userdata, msg):
         message = json.loads(msg.payload.decode())
+        print("incoming message: ", message)
         match message["action"]:
             case "browser_connect":
-                print("conn")
+                self.handle_conn(**message["data"])
             case "join":
                 self.handle_join(**message["data"])
             case "take_turn":
                 self.handle_turn(**message["data"])
-
             case _:
                 print(message["action"])
+
+    def handle_conn(self, msg):
+        self.publish(
+            TOPIC_STATE,
+            json.dumps(
+                {"state": "connected", "data": {"players": self.session.players_data()}}
+            ),
+        )
 
     def handle_join(self, name):
 
@@ -47,24 +55,61 @@ class BackendClient(mqtt.Client):
                 {"state": "joined", "data": {"players": self.session.players_data()}}
             ),
         )
-        self.publish(
-            TOPIC_STATE,
-            json.dumps(
-                {
-                    "state": "started",
-                    "data": {"board_state": self.session.game.board_data()},
-                }
-            ),
-        )
+        print("player joined: ", name)
+        if len(self.session.players) == 2:
+            print(self.session.players)
+            print("session is full and game can begin: ", name)
 
-    def handle_turn(self, player, cell):
-        try:
-            board_state, player = self.session.take_turn(player, cell)
             self.publish(
                 TOPIC_STATE,
                 json.dumps(
                     {
-                        "state": "turn_taken",
+                        "state": "started",
+                        "data": {
+                            "board_state": self.session.game.board_data(),
+                            "players": self.session.players_data(),
+                        },
+                    }
+                ),
+            )
+
+    def handle_turn(self, player, cell):
+        try:
+            board_state, player = self.session.take_turn(player, cell)
+            print(board_state, player)
+            if board_state == "winner":
+                self.publish(
+                    TOPIC_STATE,
+                    json.dumps(
+                        {
+                            "state": "game_won",
+                            "data": {
+                                "board_state": self.session.game.board_data(),
+                                "player": player,
+                            },
+                        }
+                    ),
+                )
+            else:
+                self.publish(
+                    TOPIC_STATE,
+                    json.dumps(
+                        {
+                            "state": "turn_taken",
+                            "data": {
+                                "board_state": self.session.game.board_data(),
+                                "player": player,
+                            },
+                        }
+                    ),
+                )
+
+        except WrongFirst as e:
+            self.publish(
+                TOPIC_STATE,
+                json.dumps(
+                    {
+                        "state": "no_turn",
                         "data": {
                             "board_state": self.session.game.board_data(),
                             "player": player,
@@ -72,35 +117,46 @@ class BackendClient(mqtt.Client):
                     }
                 ),
             )
-        except WrongFirst as e:
-            json.dumps(
-                {
-                    "state": "no_turn",
-                    "data": {
-                        "board_state": self.session.game.board_data(),
-                        "player": player,
-                    },
-                }
-            )
         except WrongTurn as e:
-            json.dumps(
-                {
-                    "state": "no_turn",
-                    "data": {
-                        "board_state": self.session.game.board_data(),
-                        "player": player,
-                    },
-                }
+            print(e)
+            self.publish(
+                TOPIC_STATE,
+                json.dumps(
+                    {
+                        "state": "no_turn",
+                        "data": {
+                            "board_state": self.session.game.board_data(),
+                            "player": player,
+                        },
+                    }
+                ),
             )
         except GameOver as e:
-            json.dumps(
-                {
-                    "state": "game_over",
-                    "data": {
-                        "board_state": self.session.game.board_data(),
+            self.publish(
+                TOPIC_STATE,
+                json.dumps(
+                    {
+                        "state": "game_over",
+                        "data": {
+                            "board_state": self.session.game.board_data(),
+                            "player": player,
+                        },
+                    }
+                ),
+            )
+        except Exception as e:
+            print(e)
+            self.publish(
+                TOPIC_STATE,
+                json.dumps(
+                    {
+                        "state": "unknown",
                         "player": player,
-                    },
-                }
+                        "data": {
+                            "board_state": self.session.game.board_data(),
+                        },
+                    }
+                ),
             )
 
 

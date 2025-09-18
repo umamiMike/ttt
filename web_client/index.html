@@ -26,11 +26,20 @@
 		}
 
 		#players {
+
 			display: grid;
-			grid-template-columns: repeat(3, 100px);
-			grid-template-rows: repeat(1, 100px);
+			grid-template-columns: repeat(1, 400px);
+			/* grid-template-rows: repeat(1); */
 			gap: 5px;
 		}
+
+		.player {
+
+			display: grid;
+			grid-template-columns: 1fr 5fr;
+		}
+
+		.player.p {}
 
 		.cell {
 			display: flex;
@@ -50,6 +59,10 @@
 			margin-top: 20px;
 		}
 
+		.active {
+			background-color: #f0f0f0;
+		}
+
 		#reset {
 			margin-top: 10px;
 			padding: 5px 15px;
@@ -64,14 +77,14 @@
 	<div id="board"></div>
 	<div id="status"></div>
 	<div id="players">
-		<div id="player_x"></div>
-		<div id="player_o"></div>
 	</div>
-	<!-- <button id="reset">Reset</button> -->
-	<!-- <button id="query">query</button> -->
+	<div id="info">
 
-	<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
-	<script src="app.js"></script>
+		<!-- <button id="reset">Reset</button> -->
+		<!-- <button id="query">query</button> -->
+
+		<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+		<script src="app.js"></script>
 </body>
 
 </html>

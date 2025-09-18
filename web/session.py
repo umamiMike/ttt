@@ -37,13 +37,18 @@ class Session:
         return pd
 
     def take_turn(self, player: str, cell):
+        # print("incoming player name to check")
+        # print(player)
+        # print(self.players_data())
         player = next((plyr for plyr in self.players if plyr.name == player), None)
         if player:
             try:
                 self.game.take_turn(cell, player.order)
+                if self.game.check_winner() != "take another turn":
+                    return "winner", player.name
             except GameOver as e:
                 player.games_won += 1
-        return self.game.board_data(), player.name
+            return self.game.board_data(), player.name
 
 
 if __name__ == "__main__":
