@@ -12,7 +12,11 @@
 		});
 
 		client.on("message", (topic, message) => {
-			console.log(topic, message.toString());
+			const response = JSON.parse(message.toString())
+			if ("board_state" in response.data) {
+				update_board(response.data.board_state)
+			}
+			console.log(response);
 		});
 
 		client.on("error", (topic, message) => {
@@ -72,13 +76,13 @@
 		}
 
 		function update_board(cells) {
-			boardElement.innerHTML = '';
-			board.forEach((cell, i) => {
-				const cellDiv = document.createElement('div');
-				cellDiv.classList.add('cell');
-				cellDiv.textContent = cells[i];
-				boardElement.appendChild(cellDiv);
-			}
+			cells = document.querySelectorAll('.cell')
+			console.log(cells)
+			cells.forEach((cell, i) => {
+				const cv = cells[i]
+				// cell.textContent = cv ===  1 ? "X" : cells[i] === -1 : "O" : " " 
+			});
+			makeClickable()
 			}
 
 		function handleMove(index) {

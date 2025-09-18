@@ -19,6 +19,7 @@ class Session:
         self.game = Game()
 
     def join(self, player):
+
         if not self.players:
             self.players.append(Player(name=player, order=1))
 

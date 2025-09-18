@@ -30,25 +30,7 @@ class BackendClient(mqtt.Client):
             case "browser_connect":
                 print("conn")
             case "join":
-                joined = self.session.join(message["data"])
-
-                if joined:
-                    self.publish(
-                        TOPIC_STATE,
-                        json.dumps(
-                            {"state": str(joined), "data": {"player": message["data"]}}
-                        ),
-                    )
-                    self.publish(
-                        TOPIC_STATE,
-                        json.dumps(
-                            {
-                                "state": "started",
-                                "data": {"board_state": self.session.game.board_data()},
-                            }
-                        ),
-                    )
-                print("wants to join")
+                self.handle_join(message)
             case "take_turn":
                 self.session.take_turn(**message["data"])
                 self.publish(
@@ -65,6 +47,24 @@ class BackendClient(mqtt.Client):
                 )
             case _:
                 print(message["action"])
+
+    def handle_join(self, message):
+        print(message)
+        joined = self.session.join(message["data"])
+        if joined:
+            self.publish(
+                TOPIC_STATE,
+                json.dumps({"state": str(joined), "data": {"player": message["data"]}}),
+            )
+            self.publish(
+                TOPIC_STATE,
+                json.dumps(
+                    {
+                        "state": "started",
+                        "data": {"board_state": self.session.game.board_data()},
+                    }
+                ),
+            )
 
 
 backend = BackendClient(mqtt.CallbackAPIVersion.VERSION2, client_id="backend_client")
