@@ -35,31 +35,27 @@ class BackendClient(mqtt.Client):
                 print(message["action"])
 
     def handle_join(self, name):
-        player, order = self.session.join(name)
-        # hacky clobber old session for new one
+
         if len(self.session.players) > 1:
             self.session = Session()
-        if order:
-            self.publish(
-                TOPIC_STATE,
-                json.dumps(
-                    {"state": "joined", "data": {"player": name, "order": order}}
-                ),
-            )
-            self.publish(
-                TOPIC_STATE,
-                json.dumps(
-                    {
-                        "state": "started",
-                        "data": {"board_state": self.session.game.board_data()},
-                    }
-                ),
-            )
-        else:
-            self.publish(
-                TOPIC_STATE,
-                json.dumps({"state": "full", "data": {"player": name}}),
-            )
+
+        self.session.join(name)
+
+        self.publish(
+            TOPIC_STATE,
+            json.dumps(
+                {"state": "joined", "data": {"players": self.session.players_data()}}
+            ),
+        )
+        self.publish(
+            TOPIC_STATE,
+            json.dumps(
+                {
+                    "state": "started",
+                    "data": {"board_state": self.session.game.board_data()},
+                }
+            ),
+        )
 
     def handle_turn(self, player, cell):
         try:

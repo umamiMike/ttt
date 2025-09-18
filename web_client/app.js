@@ -17,8 +17,9 @@
 			}
 			switch (response.state) {
 				case "joined":
-					const {player, order} = response.data;
-					create_player(player, order)
+					console.log(response)
+					const plyrs = response.data.players;
+					create_players(plyrs)
 					break;
 				case "full":
 					console.log("game full")
@@ -71,20 +72,23 @@
 			parent.appendChild(name_prompt)
 
 		}
-		function create_player(player, order){
+		function create_players(incoming_players) {
+	
+			incoming_players.forEach( (player) => {
+				create_player(player)
+			})
 
-			const player_id = order === 1 ? "player_x" :  "player_o" 
+		}
+		function create_player(player){
+
+			const player_id = player.order === 1 ? "player_x" :  "player_o" 
 			const player_ui = document.getElementById(player_id);
 			const name_label = document.createElement('div');
 			name_label.textContent = player_id
 			const name_div = document.createElement('div');
-			name_div.textContent = player	
+			name_div.textContent = player.player
 			player_ui.appendChild(name_label)
 			player_ui.appendChild(name_div)
-			console.log(player_ui)
-				
-				
-
 		}
 
 		function join_game(name) {

@@ -30,7 +30,11 @@ class Session:
             player_ob = Player(name=player, order=-1)
             self.players.append(player_ob)
 
-        return player_ob.name, player_ob.order
+        return self.players
+
+    def players_data(self):
+        pd = [{"player": p.name, "order": p.order} for p in self.players]
+        return pd
 
     def take_turn(self, player: str, cell):
         player = next((plyr for plyr in self.players if plyr.name == player), None)
@@ -39,7 +43,6 @@ class Session:
                 self.game.take_turn(cell, player.order)
             except GameOver as e:
                 player.games_won += 1
-                print(player)
         return self.game.board_data(), player.name
 
 
