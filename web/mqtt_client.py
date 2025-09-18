@@ -46,13 +46,16 @@ class BackendClient(mqtt.Client):
 
     def handle_reset(self):
         self.session.new_game()
+        self.session.players = []
         self.publish(
             TOPIC_STATE,
             json.dumps(
                 {
                     "state": "reset",
-                    "data": {"players": self.session.players_data()},
-                    "board_state": self.session.game.board_data(),
+                    "data": {
+                        "players": self.session.players_data(),
+                        "board_state": self.session.game.board_data(),
+                    },
                 }
             ),
         )

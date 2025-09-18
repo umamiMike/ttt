@@ -22,12 +22,20 @@
 			}
 			switch (response.state) {
 				case "connected":
+					console.log("connn")
 					console.log(response)
+					if (response.data.players.length < 2 && !joined ){
+						playerForm(infoElement)
+					}
 					//create_players(plyrs)
 					break;
 				case "joined":
 					console.log(response)
-					//create_players(plyrs)
+					joined = true
+					break;
+				case "started":
+					console.log("started")
+					// console.log(response.data)
 					break;
 				case "started":
 					console.log("started")
@@ -43,6 +51,13 @@
 					break;
 				case "game_won":
 					console.log("game won")
+					console.log(response.data)
+					break;
+				case "reset":
+					console.log("reset")
+					update_board(response.data.board_state)
+					joined = false
+					playerForm(infoElement)
 					console.log(response.data)
 					break;
 				default:
@@ -69,30 +84,17 @@
 
 		// hacky... this is just for the current player session
 		let player_name = ""
+		let joined = false
 
-		function initPlayer(parent) {
-			const name_prompt = document.createElement('input');
-			name_prompt.placeholder = `Join the game as ${parent.id}`
-			name_prompt.addEventListener("keypress", (e) => {
-				if (e.key === "Enter") {
-					const name = document.createElement('div')
-					name.textContent = name_prompt.value
-					player_name = name_prompt.value
-					//need to delete the prompt from the other player
-					join_game(name_prompt.value)
-					name_prompt.remove()
-				}
-			});
-			parent.appendChild(name_prompt)
-		}
 
 
 		function remove_form() {
+			infoElement.replaceChildren()
 
-			const form = document.getElementById('player_input');
-			form.remove()
 		}
 		function playerForm(parent) {
+			remove_form()
+			if (joined == true) return
 			const name_prompt = document.createElement('input');
 			name_prompt.id = "player_input"
 			name_prompt.placeholder = `Join the game`
@@ -166,19 +168,14 @@
 				}
 				else {
 					child.classList.add('active');
-
 				}
 
 			}
-			
-
-
 		}
 
 		function handleMove(index) {
 			msg = {action: "take_turn", data: {player: player_name, cell: index}}
 			client.publish("game/move", JSON.stringify(msg), {qos: 0});
-
 		}
 
 		reset_button.addEventListener('click', () => reset_game());
@@ -186,12 +183,10 @@
 
 			msg = {action: "reset", data: { } }
 			client.publish("game/move", JSON.stringify(msg), {qos: 0});
-
 		}
 
 
 		initBoard();
-		playerForm(infoElement)
 		// initPlayer(player_x);
 		// initPlayer(player_o);
 		// statusElement.textContent = `Next turn: ${currentPlayer}`;
