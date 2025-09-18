@@ -2,10 +2,9 @@
 		const client = mqtt.connect("ws://localhost:9001"); // Mosquitto WS listener
 
 		client.on("connect", () => {
-			console.log("Connected to broker!");
 			client.subscribe("game/state", (err) => {
 				if (!err) {
-					msg = {action: "browser_connect", player: "", data: ""}
+					msg = {action: "browser_connect", data: { }}
 					client.publish("game/move", JSON.stringify(msg));
 				}
 			});
@@ -13,10 +12,10 @@
 
 		client.on("message", (topic, message) => {
 			const response = JSON.parse(message.toString())
+			console.log(response);
 			if ("board_state" in response.data) {
 				update_board(response.data.board_state)
 			}
-			console.log(response);
 		});
 
 		client.on("error", (topic, message) => {
@@ -55,7 +54,7 @@
 
 		}
 		function join_game(name) {
-			msg = {action: "join", data: name}
+			msg = {action: "join", data: {name: name}}
 			client.publish("game/move", JSON.stringify(msg), {qos: 1});
 		}
 		function initBoard() {

@@ -1,5 +1,6 @@
 import paho.mqtt.client as mqtt
 from web.session import Session
+from core.game import WrongTurn, WrongFirst
 import json
 import uuid
 
@@ -30,31 +31,19 @@ class BackendClient(mqtt.Client):
             case "browser_connect":
                 print("conn")
             case "join":
-                self.handle_join(message)
+                self.handle_join(**message["data"])
             case "take_turn":
-                self.session.take_turn(**message["data"])
-                self.publish(
-                    TOPIC_STATE,
-                    json.dumps(
-                        {
-                            "state": "turn_taken",
-                            "data": {
-                                "board_state": self.session.game.board_data(),
-                                "player": message["data"]["player"],
-                            },
-                        }
-                    ),
-                )
+                self.handle_turn(**message["data"])
+
             case _:
                 print(message["action"])
 
-    def handle_join(self, message):
-        print(message)
-        joined = self.session.join(message["data"])
+    def handle_join(self, name):
+        joined = self.session.join(name)
         if joined:
             self.publish(
                 TOPIC_STATE,
-                json.dumps({"state": str(joined), "data": {"player": message["data"]}}),
+                json.dumps({"state": str(joined), "data": {"player": name}}),
             )
             self.publish(
                 TOPIC_STATE,
@@ -64,6 +53,43 @@ class BackendClient(mqtt.Client):
                         "data": {"board_state": self.session.game.board_data()},
                     }
                 ),
+            )
+
+    def handle_turn(self, player, cell):
+        try:
+            board_state, player = self.session.take_turn(player, cell)
+            self.publish(
+                TOPIC_STATE,
+                json.dumps(
+                    {
+                        "state": "turn_taken",
+                        "data": {
+                            "board_state": self.session.game.board_data(),
+                            "player": player,
+                        },
+                    }
+                ),
+            )
+        except WrongFirst as e:
+            json.dumps(
+                {
+                    "state": "no_turn",
+                    "data": {
+                        "board_state": self.session.game.board_data(),
+                        "player": player,
+                    },
+                }
+            )
+        except WrongTurn as e:
+            print("should log this error")
+            json.dumps(
+                {
+                    "state": "no_turn",
+                    "data": {
+                        "board_state": self.session.game.board_data(),
+                        "player": player,
+                    },
+                }
             )
 
 
