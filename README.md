@@ -1,18 +1,72 @@
 ## Tic Tac Toe
 
+This is a demo game of tic-tac-toe.
+
+## Why I built it
+
+I have wanted to explore connecting  distributed clients using an event-driven system.  
+
+I use big frameworks a ton. For a change I wanted to back to buildng things
+from the ground up, with as few 3rd party libraries as possible.
+This is meant to demo illustrating, the concepts of an `event-driven`
+
+## Design Choices:
+
+It will have core game logic management, 
+- a web server for hosting an api 
+- A web client for a player interface
+- A `curses` based ui for a terminal interface.  
+- communication will be done via mqtt broker, with the web server, web client, communicating via event messages
+
+
+## Thoughts
+
+This is far from what I would consider complete, but it functions.
+
+
+## dependencies
+
+`paho mqtt client` (Python)
+`mqttjs` JS client
+`mosquitto` mqtt service
+
+
 ## installation and setup
 
-### installing mqtt broker
+**installing mqtt broker**
 
 On windows
+[latest mosquitto installer](https://mosquitto.org/files/binary/win64/mosquitto-2.0.22-install-windows-x64.exe)
 
 On mac
 
-brew install mosquitto
+`brew install mosquitto`
 
-`mosquitto -c "$(pwd)/broker/mosquitto.conf" -v
 On linux
 
+using apt
+```
+sudo apt install mosquitto
+
+```
+
+or snap 
+```
+snap install mosquitto
+```
+
+
+for more info visit their [downloads page](https://mosquitto.org/download/)
+
+1. clone from `git@github.com:umamiMike/ttt.git`
+1. cd into the directory
+2. `python -m pip install -r requirements.txt`
+
+**start the mosquitto server** 
+
+```
+mosquitto -c "$(pwd)/broker/mosquitto.conf" -v
+```
 
 if successful you should see something like 
 
@@ -25,21 +79,31 @@ if successful you should see something like
 1757813654: mosquitto version 2.0.22 running
 ```
 
-1. clone from `{TODO: }` and cd into the directory
-2. `python -m pip install -r requirements.txt`
-3. run `python main.py`
 
-## Design Choices:
-This is a demo game of tic-tac-toe.  
-It will have core game logic management, 
-- a web server for hosting an api 
-- A web client for a player interface
-- A `curses` based ui for a terminal interface.  
-- communication will be done via mqtt broker, with the web server, web client, communicating via event messages
+**start the static web server**
 
-## Reasoning
-I wanted to demo the architecture using multiple types of interfaces but without large dependencies.
+for web client
+```
+python -m web.server
+```
 
-I use big frameworks a ton.  With this, I want to build things from the ground up, with as few libraries, but using, and illustrating, the concepts of an `event driven` system
-I thought it would be fun to make something that 2 players could play, from two very different types of interfaces, but have a similar experience.
 
+**start the mqtt backend client**
+python -m web.mqtt_client
+
+**open the web client**
+
+- [open your browser running on port 8005](http://localhost:8005)
+- [open another browser running on port 8005](http://localhost:8005)
+
+Now you will be able to play tictactoe with 2 seperate browser clients
+
+## next steps
+
+-  [ ] add server config to make it available on the network.  It is probably more fun 
+- [ ] make session matchmaking.  Currently there is only a single session, as this was a toy demo.
+- [ ] create a cli client
+
+        I had originally intended to create a game you could connect to via a cli OR web client. I have only built the web interface.
+
+I have a spike of a curses based interface
