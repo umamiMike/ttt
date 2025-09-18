@@ -12,13 +12,10 @@ TOPIC_STATE = "game/state"
 class BackendClient(mqtt.Client):
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.session = Session()
         super().__init__()
+        self.session = Session()
 
         self.connect(BROKER, 1883, 60)
-        # self.on_connect = on_connect
-        # self.on_message = on_message
 
     def on_connect(self, userdata, flags, rc, properties=None):
         print("Connected with result code", rc)
@@ -26,7 +23,6 @@ class BackendClient(mqtt.Client):
 
     def on_message(self, client, userdata, msg):
         message = json.loads(msg.payload.decode())
-
         match message["action"]:
             case "browser_connect":
                 print("conn")
@@ -40,7 +36,9 @@ class BackendClient(mqtt.Client):
 
     def handle_join(self, name):
         player, order = self.session.join(name)
-        print(player, order)
+        # hacky clobber old session for new one
+        if len(self.session.players) > 1:
+            self.session = Session()
         if order:
             self.publish(
                 TOPIC_STATE,

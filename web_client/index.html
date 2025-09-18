@@ -25,6 +25,13 @@
 			gap: 5px;
 		}
 
+		#players {
+			display: grid;
+			grid-template-columns: repeat(3, 100px);
+			grid-template-rows: repeat(1, 100px);
+			gap: 5px;
+		}
+
 		.cell {
 			display: flex;
 			justify-content: center;
@@ -56,10 +63,12 @@
 	<h1>Tic-Tac-Toe</h1>
 	<div id="board"></div>
 	<div id="status"></div>
-	<div id="player_x"></div>
-	<div id="player_y"></div>
-	<button id="reset">Reset</button>
-	<button id="query">query</button>
+	<div id="players">
+		<div id="player_x"></div>
+		<div id="player_o"></div>
+	</div>
+	<!-- <button id="reset">Reset</button> -->
+	<!-- <button id="query">query</button> -->
 
 	<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
 	<script src="app.js"></script>

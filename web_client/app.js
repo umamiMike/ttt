@@ -12,10 +12,28 @@
 
 		client.on("message", (topic, message) => {
 			const response = JSON.parse(message.toString())
-			console.log(response);
 			if ("board_state" in response.data) {
 				update_board(response.data.board_state)
 			}
+			switch (response.state) {
+				case "joined":
+					const {player, order} = response.data;
+					create_player(player, order)
+					break;
+				case "full":
+					console.log("game full")
+
+					break;
+				case "turn_taken":
+					console.log("turn taken")
+					console.log(response.data)
+					break;
+				default:
+					console.log("unhandled")
+					console.log(response);
+
+			}
+			
 		});
 
 		client.on("error", (topic, message) => {
@@ -35,25 +53,40 @@
 		let currentPlayer = 'X';
 		let gameOver = false;
 
-		function playerInfo() {
-			const name = "mike"
+		function playerInfo(parent) {
 			const name_prompt = document.createElement('input');
 			name_prompt.placeholder = "Player Name"
 			name_prompt.addEventListener("keypress", (e) => {
 				if (e.key === "Enter") {
 					const name = document.createElement('div')
 					name.textContent = name_prompt.value
-					const par = name_prompt.parentElement
-					par.appendChild(name)
-					// name.textContent = name_prompt.value
+					join_game(name_prompt.value)
+					// const par = name_prompt.parentElement
+					// par.appendChild(name)
+					// // name.textContent = name_prompt.value
 					name_prompt.remove()
-					join_game(name.textContent)
-					makeClickable()
+					// makeClickable()
 				}
 			});
-			player_x.appendChild(name_prompt)
+			parent.appendChild(name_prompt)
 
 		}
+		function create_player(player, order){
+
+			const player_id = order === 1 ? "player_x" :  "player_o" 
+			const player_ui = document.getElementById(player_id);
+			const name_label = document.createElement('div');
+			name_label.textContent = player_id
+			const name_div = document.createElement('div');
+			name_div.textContent = player	
+			player_ui.appendChild(name_label)
+			player_ui.appendChild(name_div)
+			console.log(player_ui)
+				
+				
+
+		}
+
 		function join_game(name) {
 			msg = {action: "join", data: {name: name}}
 			client.publish("game/move", JSON.stringify(msg), {qos: 1});
@@ -109,5 +142,6 @@
 		// });
 		// Initial render
 		initBoard();
-		playerInfo();
-		statusElement.textContent = `Next turn: ${currentPlayer}`;
+		playerInfo(player_x);
+		playerInfo(player_o);
+		// statusElement.textContent = `Next turn: ${currentPlayer}`;
