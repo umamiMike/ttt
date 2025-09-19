@@ -6,10 +6,16 @@ This is a demo game of tic-tac-toe.
 
 I have wanted to explore connecting  distributed clients using an event-driven system.  
 
-I use big frameworks a ton. For a change I wanted to back to buildng things
+I use big frameworks a ton. For a change I wanted to go back to buildng things
 from the ground up, with as few 3rd party libraries as possible.
-This is meant to demo illustrating, the concepts of an `event-driven`
-This is far from what I would consider complete, but it functions.  
+This is meant to demo  concepts of an `event-driven` system
+there are two topics :
+- "game/move" which the clients use to communicate with the backend and
+- "game/state" for the backend to respond to all connected clients.
+
+all the state of the game is managed on the backend side, and is **published** to the clients who, in turn, update their own state accordingly.
+
+This is far from what I would consider complete, but it functions as a happy path demo.
 
 ## Design Choices:
 
@@ -19,16 +25,17 @@ This is far from what I would consider complete, but it functions.
 
 ## dependencies
 
-`paho mqtt client` (Python)
-`mqttjs` JS client
-`mosquitto` mqtt service
+- `paho mqtt client` (Python)
+- `mqttjs` JS client
+- `mosquitto` mqtt service
 
 ## installation and setup
 
 ### installing mqtt broker
 
 **On windows**
-[latest mosquitto installer](https://mosquitto.org/files/binary/win64/mosquitto-2.0.22-install-windows-x64.exe)
+
+- [ get the latest mosquitto installer](https://mosquitto.org/files/binary/win64/mosquitto-2.0.22-install-windows-x64.exe)
 
 On mac
 
@@ -93,10 +100,10 @@ Now you will be able to play tictactoe with 2 seperate browser clients
 
 ## next steps
 
--  [ ] add server config to make it available on the network.  It is probably more fun 
-- [ ] make session matchmaking.  Currently there is only a single session, as this was a toy demo.
-- [ ] create a cli client
+-  [ ] add server config to make it available on the network.  It is probably more fun if you can play somebody on a different computer
+- [ ] make session matchmaking.  Currently there is only a single session, as this was a toy demo. Then many people can pair up and play.
+- [ ] create a cli client so you can play it from your terminal OR a web client.
+- [ ] DRY up a bunch of the backend handling
+- [ ] convert the js to being more modular
 
-> I had originally intended to create a game you could connect to via a cli OR web client. I have only built the web interface.
-
-I have a spike of a curses based interface
+> I had originally intended to create a game you could connect to via a cli OR web client. I have only built the web interface. I have a spike of a curses based interface
